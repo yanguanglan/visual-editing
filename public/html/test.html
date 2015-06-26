@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gogo">
+<head >
+	<meta charset="utf-8" />
+    <meta id="eqMobileViewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" servergenerated="true">
+    <meta name='format-detection' content='telephone=no'>
+    <meta http-equiv='x-rim-auto-match' content='none'>
+    <title></title>
+    <link href="../stylesheets/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">  
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../javascripts/angular.js"></script>
+</head>          
+<body>
+	<section class="middle">
+		<div gg-parsejson class="container">
+			
+	        <!-- <div class="draggable" ctype="4" style="top:165px;left:21px;height: 118.608870967742px; width: 82.0194174757282px;overflow:hidden">
+	            <div class="animatable bounceInDown animated" style="-webkit-animation-duration:1s;-webkit-animation-delay:1s;">
+	                <img style="width:132px;height:159px;position:absolute;left: -30.7741935483871px; top: -17.9417475728155px;" src="images/tail.png" >
+	            </div>
+	        </div>  -->
+	    </div>    
+	</section>
+
+	<script>
+		function renderPage() {
+			var d, e, f = 1,
+				g = document.documentElement.clientWidth,
+				h = document.documentElement.clientHeight;
+
+			g / h >= 320 / 486 ? (f = h / 486, d = (g / f - 320) / 2) : (f = g / 320, e = (h / f - 486) / 2);
+
+			$('#eqMobileViewport').attr('content', 'width=320, initial-scale=' + f + ', maximum-scale=' + f + ', user-scalable=no');
+
+			// if (navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1) {
+			// 	var i = 320 / g,
+			// 		j = 486 / h,
+			// 		k = Math.max(i, j);
+
+			// 	k = k > 1 ? k : 160 * k, k = parseInt(k), $('#eqMobileViewport').attr('content', 'width=320, target-densitydpi=' + k);
+			// }
+		}
+
+		renderPage();
+	</script>
+	<script>
+		angular.module('gogo', []).directive('ggParsejson', function($http) {
+			return {
+				restrict: 'A',
+				link: function(scope, ele, attrs) {
+					$http.get('../tmp/1.json').success(function(data) {
+						angular.forEach(data.elements, function(d) {
+							console.log(JSON.parse(d));
+							d = JSON.parse(d);
+							var _html;
+							if(d.type == '2') {
+								_html = $('<div ctype="2" class="draggable"><div class="edit animatable"><div class="text preventDom edit-text" style="word-wrap: break-word;"></div>');
+								_html
+									.css(d.css)
+									.find('.animatable')
+									.addClass((d.animatable.class || '') + ' animated')
+									.css({'-webkit-animation-duration': d.animatable.anim.duration || 0, '-webkit-animation-delay': d.animatable.anim.delay || 0})
+									.find('.text')
+									.append($(d.content));
+							} else {
+								_html = $('<div class="draggable" ctype="4" style="top:50px"><div class="animatable" style=""><img style="position:absolute" src="" ></div></div>');
+								_html
+									.css(d.css)
+									.find('.animatable')
+									.addClass((d.animatable.class || '') + ' animated')
+									.css({'-webkit-animation-duration': d.animatable.anim.duration || 0, '-webkit-animation-delay': d.animatable.anim.delay || 0})
+									.find('img')
+									.attr('src', d.imgSrc)
+									.css(d.imgStyle);
+							}
+							ele.append(_html);
+						})
+					});
+				}
+			}
+		});
+	
+	</script>
+</body>
+</html>

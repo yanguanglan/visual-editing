@@ -1,0 +1,136 @@
+*{
+		margin:0;
+		padding:0;
+		/*去掉焦点默认样式*/
+		outline:0;
+	}
+	*, :before, :after {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	body * {
+		text-shadow: none!important;
+	}
+	/*重置滚动条样式*/
+	::-webkit-scrollbar {
+		width: 12px;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #ccc;
+	}
+	::-webkit-scrollbar-track {
+		background-color: #eaeaea;
+		border-left: 1px solid #ccc;
+	}
+
+	#container{
+        position:absolute;
+        left:400px;
+        top:100px;
+		width:320px;
+		height:486px;
+		border:1px solid #ccc;
+	}
+	.draggable{
+		position:absolute;
+		left:0px;
+		top:0px;
+		width:240px;
+		height:30px;
+		touch-action: pan-x pan-y;
+		-webkit-user-select: none;
+		-webkit-user-drag: none;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		/*cursor: text;*/
+		
+	}
+	.bar-rotate{
+		position:absolute;
+		top:-30px;
+		height:20px;
+		width:20px;
+		border:2px solid red;
+	}
+	.ui-resizable .ui-resizable-e{border-left:2px solid red;}
+	.ui-resizable .ui-resizable-s{border-top:2px solid red;}
+	.ui-resizable .ui-resizable-n{border-bottom:2px solid red;}
+	.ui-resizable .ui-resizable-w{border-right:2px solid red;}
+
+
+	
+    #voiceBtn {
+      width: 20px;
+      color: transparent;
+      background-color: transparent;
+      transform: scale(2.0, 2.0);
+      -webkit-transform: scale(2.0, 2.0);
+      -moz-transform: scale(2.0, 2.0);
+      border: transparent;
+      cursor: pointer;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+    }
+
+    div[data-role="editor-toolbar"] {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .dropdown-menu a {
+      cursor: pointer;
+    }
+	.btn-toolbar .color-btn {
+		border-bottom: 2px solid #08a1ef;
+		padding-bottom: 2px;
+		margin-bottom: -2px;
+		font-size: 12px;
+		top: -1px
+	}
+
+	.btn-toolbar .bgcolor-btn {
+		background-color: #d0d0d0;
+		padding: 2px;
+		margin: -2px
+	}
+
+	.btn-toolbar .color-menu,.btn-toolbar .bgcolor-menu {
+		min-width: 140px;
+		padding: 3px
+	}
+
+	.btn-toolbar .color-menu li,.btn-toolbar .bgcolor-menu li {
+		float: left;
+		box-shadow: 0 1px 2px rgba(0,0,0,.5);
+		width: 20px;
+		height: 20px;
+		margin: 3px;
+		cursor: pointer;
+		overflow: hidden
+	}
+
+	.btn-toolbar .color-menu li a,.btn-toolbar .bgcolor-menu li a {
+		height: 100%;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		border-radius: 0;background-image: none;
+	}
+
+	.btn-toolbar .color-menu .glyphicon-remove,.btn-toolbar .bgcolor-menu .glyphicon-remove {
+		color: #b680b0;
+		line-height: 16px
+	}
+	.edit-img{overflow: hidden;position: relative;height: 100%;width: 100%}
+	.edit-img .comp_image{ position: absolute; top:50%; left:50%;max-width: none;}
+
+	.img-Jcrop {
+		position:absolute;
+		width:500px;
+		height:290px;
+		top:50px;
+		right:50px;
+		border:1px solid #222;
+	}
