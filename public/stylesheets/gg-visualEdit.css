@@ -14,7 +14,7 @@ header nav ul li{float:left;height:40px;line-height: 40px;margin: 0 20px;cursor:
 
 .middle {position:relative;width:1000px;height:800px;margin: 50px auto 10px;border:1px solid #222;}
 
-.middle .container {position:absolute;left:250px;top:100px;width:316px;height:500px;border:1px solid #ccc;}
+.middle .container {position:absolute;left:50%;top:100px;width:316px;height:500px;margin-left:-158px;border:1px solid #ccc;}
 
 .right-menu {position:absolute;width:100px;border:1px solid #ccc;display: none;background: #fff;z-index:100;-webkit-box-shadow: 3px 3px 3px;}
 
