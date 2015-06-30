@@ -406,7 +406,7 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			};
 		}
 	};
-}).controller('containerController', ['$scope', 'getzIndexPrivoder', function($scope, getzIndexPrivoder) {    
+}).controller('containerController', ['$scope', '$compile', 'getzIndexPrivoder', function($scope, $compile, getzIndexPrivoder) {    
 	var that;   
 
 	//右键菜单处理
@@ -425,9 +425,26 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 		} else if(self.hasClass('downfloor')) {
 			var num = parseInt(that.css('zIndex'));
 			that.css({'zIndex': num - 1});
-		}	
-	});
+		} else if(self.hasClass('copy')) {
+			var draggable = $('.draggable'),
+				text = '';
+			$.each(draggable, function() {
+				var self = $(this);
 
+				if(self.data('no') == that.data('no')) {
+					//outerHTML有些浏览器不兼容
+					text = $(self[0].outerHTML);
+					return false;
+				}
+			});
+			
+			//修改每个可移动单位的编号,当前唯一值
+			text.attr('data-no', 65);
+			$('.container').append(text);
+			$compile(text)($scope);
+		}
+	});
+	//给右键菜单设置对应对象
 	$scope.$on('set-That', function(e, data) {
 		that = data;
 	});
