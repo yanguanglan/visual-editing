@@ -1,4 +1,4 @@
-*{margin:0;padding:0;/*去掉焦点默认样式*/outline:0;}
+*{margin:0;padding:0;/*去掉焦点默认样式*/outline:0;z-index:0;}
 *, :before, :after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
 li {list-style:none;}
 body * {text-shadow: none!important;}

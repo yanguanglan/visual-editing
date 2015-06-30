@@ -26,26 +26,28 @@
 		</header>
 		<div  class="middle" gg-middle ng-mousedown="midClick($event)">
 			<div class="container">
-				<div gg-rotate gg-resize gg-drag gg-edit ctype="2" ng-dblclick="editWord($event)" ng-mousedown="bindResize()" class="draggable">
+				<div gg-rotate gg-resize gg-drag gg-edit ctype="2" data-no='1'  ng-dblclick="editWord($event)" ng-mousedown="bindResize()" class="draggable">
 					<div class="edit animatable" style="">
 						<div class="text preventDom edit-text" style="word-wrap: break-word;">Ford</div>
 					</div>
 				</div>
-				<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" style="top:50px">
+				<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" data-no='2'  style="top:50px">
 					<div class="edit-img animatable" style="">
-						<img id="18" class="element comp_image editable-image" src="/images/head.png" >
+						<img class="element comp_image editable-image" src="/images/head.png" >
 					</div>
 				</div>
-				<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" style="top:150px">
+				<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" data-no='3'  style="top:150px">
 					<div class="edit-img animatable" style="">
-						<img id="18" class="element comp_image editable-image" src="/images/tail.png" >
+						<img class="element comp_image editable-image" src="/images/tail.png" >
 					</div>
 				</div>
 			</div>	
 			<nav class="right-menu">
 				<ul>
-					<li>上一层</li>
-					<li>下一层</li>
+					<li  class="stick">置顶</li>
+					<li  class="bottom">置底</li>
+					<li  class="upfloor">上一层</li>
+					<li  class="downfloor">下一层</li>
 					<li class="delete">删除</li>
 				</ul>
 			</nav>
@@ -221,7 +223,7 @@
 	<script src="javascripts/jquery.Jcrop.js"></script>
 	<script src="javascripts/gg-visualEdit.js"></script>
 	<script>
-	
+		//文字处理
 		$(function(){
 			function initToolbarBootstrapBindings() {
 				var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 

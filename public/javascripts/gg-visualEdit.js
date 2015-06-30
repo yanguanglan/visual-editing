@@ -1,3 +1,4 @@
+//动画服务
 angular.module('drag', []).factory('animatePrivoder', function() {
 	return {
 		animate: function(self) {
@@ -7,12 +8,12 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 				animatable = self.find('.animatable');
 
 			$('.animate').html('').append(input).append(ul);
-
+			//点击切换动画
 			ul.on('mousedown', 'li', function(e) {
 				e.stopPropagation();    
 
 				var duration = $('#duration').val() || 1,
-						delay = $('#delay').val() || 1;
+					delay = $('#delay').val() || 1;
 						
 				//秒切动画，去掉上一次的动画
 				animatable.removeClass(animateName + ' animated');
@@ -33,8 +34,11 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			}); 
 		}
 	}
-}).factory('jcropPrivoder', function() {
+})
+//剪切图片服务,使用jcrop插件
+.factory('jcropPrivoder', function() {
 	return {
+		//lastC保存的上一次的状态
 		jcrop: function(self, lastC) {
 			var jcrop = $('<img id="jcrop" src="">'),
 				img = self.find('img'),
@@ -82,7 +86,35 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			}
 		}
 	}
-}).directive('ggDrag', function() {
+})
+//获取层级服务
+.factory('getzIndexPrivoder', function() {
+	return {
+		//lastC保存的上一次的状态
+		max: function() {
+			var draggable = $('.draggable'),
+				max = -100000;
+			$.each(draggable, function() {
+				var self = $(this),
+					num = self.css('zIndex');
+				max = max > num? max: num;
+			});
+			return max;
+		},
+		min: function() {
+			var draggable = $('.draggable'),
+				min = 100000;
+			$.each(draggable, function() {
+				var self = $(this),
+					num = self.css('zIndex');
+				min = min < num? min: num;
+			});
+			return min;
+		}
+	}
+})
+//拖动指令,要考虑旋转之后的状态
+.directive('ggDrag', function() {
 	return {
 		restrict: "A",
 		link: function(a, b) {
@@ -150,7 +182,9 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			})
 		}
 	}
-}).directive('ggRotate', function() {
+})
+//旋转指令
+.directive('ggRotate', function() {
 	return {
 		restrict : 'A',  
 		link : function(scope, element) {
@@ -200,7 +234,9 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			});
 		}
 	};
-}).directive('ggResize', ['jcropPrivoder', 'animatePrivoder', function(jcropPrivoder, animatePrivoder) {
+})
+//缩放指令
+.directive('ggResize', ['jcropPrivoder', 'animatePrivoder', function(jcropPrivoder, animatePrivoder) {
 	return {
 		restrict: 'A',
 		link: function(scope, element) {
@@ -362,6 +398,7 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 				}
 
 				if(self.closest('.right-menu').hasClass('right-menu')) {
+					//触发右键菜单
 					scope.$emit('to-rightMenu', self);
 				}
 
@@ -369,17 +406,29 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 			};
 		}
 	};
-}).controller('containerController', ['$scope', function($scope) {    
+}).controller('containerController', ['$scope', 'getzIndexPrivoder', function($scope, getzIndexPrivoder) {    
 	var that;   
 
+	//右键菜单处理
 	$scope.$on('to-rightMenu', function(e, self) {
 		if(self.hasClass('delete')) {
 			that.remove();
-		}
+		} else if(self.hasClass('stick')) {
+			var num = parseInt(getzIndexPrivoder.max());
+			that.css({'zIndex': num + 1});
+		} else if(self.hasClass('bottom')) {
+			var num = parseInt(getzIndexPrivoder.min());
+			that.css({'zIndex': num - 1});
+		} else if(self.hasClass('upfloor')) {
+			var num = parseInt(that.css('zIndex'));
+			that.css({'zIndex': num + 1});
+		} else if(self.hasClass('downfloor')) {
+			var num = parseInt(that.css('zIndex'));
+			that.css({'zIndex': num - 1});
+		}	
 	});
 
 	$scope.$on('set-That', function(e, data) {
-		console.log(data);
 		that = data;
 	});
 }]).controller('headController', function($scope, $http, $compile) {
@@ -456,7 +505,7 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 	};
 
 	$scope.addPicBox = function() {
-		var text = $('<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" style="top:50px"><div class="edit-img animatable" style=""><img id="18" class="element comp_image editable-image" src="/images/head.png" ></div></div>');
+		var text = $('<div gg-rotate gg-resize gg-drag gg-edit class="draggable" ctype="4" style="top:50px"><div class="edit-img animatable" style=""><img class="element comp_image editable-image" src="/images/head.png" ></div></div>');
 		$('.container').append(text);
 		$compile(text)($scope);
 	};
