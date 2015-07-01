@@ -242,7 +242,7 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 		link: function(scope, element) {
 			var self = element,
 				jqimg = self.find('img'),
-				allDraggable = self.parent().find('.draggable'),
+				
 				image = new Image();
 	
 			var lastC = {c:{}};
@@ -268,7 +268,8 @@ angular.module('drag', []).factory('animatePrivoder', function() {
 				e.stopPropagation();      
 				//设置旋转按钮的位置 
 				self.find('.bar-rotate').css({'left': self.width()/2 - self.find('.bar-rotate').width()/2 + 'px'});
-				allDraggable
+				var allDraggable = self.parent().find('.draggable');
+					allDraggable
 					.find('.ui-resizable-handle').hide()
 					.end()
 					.find('.bar-rotate').hide();
